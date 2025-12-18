@@ -31,10 +31,6 @@
 
 int main(int argc, char *argv[]) {
     QApplication app(argc, argv); // 主线程创建 Qt 核心对象
-
-    // prepare OpenCV windows on the main (GUI) thread so worker threads
-    // can call cv::imshow safely. This helps avoid missing windows when
-    // imshow is called from background threads.
     cv::namedWindow("img", cv::WINDOW_NORMAL);
     cv::namedWindow("detect", cv::WINDOW_NORMAL);
     cv::namedWindow("track", cv::WINDOW_NORMAL);
@@ -50,19 +46,18 @@ int main(int argc, char *argv[]) {
     LfStack<ImageInfo> mouse_info_stack;
     SerialPort sp;
 
-    // runtime-controlled capture (mcap) enabled flag from config/capture.json
     bool capture_enabled = false;
     if (!J_CAPTURE.config_["enabled"].empty()) {
         J_CAPTURE.config_["enabled"] >> capture_enabled;
     }
 
-    LfStack<CaptureInfo> capture_stack; // created always but used only if capture_enabled
+    LfStack<CaptureInfo> capture_stack;
 
     auto receive = [&]() -> void {
         HikRobot hik(sp);
         hik.cameraInit();
         while (running.load()) {
-            hik.refreshImage(fd_msgs, display_stack);   // HikRobot pushes Into fd_msgs and directly to display_stack for test
+            hik.refreshImage(fd_msgs, display_stack);   
             std::this_thread::sleep_for(std::chrono::milliseconds(1));
         }
     };
@@ -97,7 +92,6 @@ int main(int argc, char *argv[]) {
         }
     };
 
-    // capture thread: only add when enabled in config
     std::optional<std::function<void()>> capture_func_opt;
     if (capture_enabled) {
         capture_func_opt = [&]() -> void {
@@ -213,7 +207,6 @@ int main(int argc, char *argv[]) {
     });
     displayTimer->start(30); // ~33 FPS refresh on GUI thread
 
-    // FPS monitor: print produced/displayed counts every 2 seconds
     QTimer *fpsTimer = new QTimer();
     QObject::connect(fpsTimer, &QTimer::timeout, [&]() {
         uint32_t p = ::frames_produced.exchange(0, std::memory_order_relaxed);
@@ -222,9 +215,5 @@ int main(int argc, char *argv[]) {
     });
     fpsTimer->start(2000);
 
-    // Do not call t_p.run() here: it sets the pool to stop and joins workers,
-    // which blocks the main thread and prevents the Qt event loop from running.
-    // Worker threads are already launched by addTask(); keep them running while
-    // the main thread runs the Qt event loop.
     return app.exec(); // Qt 主线程事件循环
 }
