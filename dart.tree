@@ -3,7 +3,7 @@
 ├── config                              // 配置文件
 │  ├── flatbuffers
 │  ├── json
-│  │  ├── capture.json                  // capture runtime config (enabled, frame_cnt, mcap path)
+│  │  ├── capture.json                 
 │  │  ├── camera.json
 │  │  ├── detect.json
 │  │  ├── sensors.json
@@ -11,7 +11,7 @@
 │  │  └── mouse.json
 │  └── openvino
 ├── LICENSE
-├── main.cpp                            // 主函数（现在读取 capture.json enabled 字段以 runtime 控制录包）
+├── main.cpp                            // 主函数
 ├── README.md
 └── src
   ├── capture                           // 录包模块
@@ -48,17 +48,17 @@
   │  │  │    ├── MvISPErrorDefine.h
   │  │  │    └── PixelType.h
   │  │  ├── sensors.hpp
-  │  │  ├── sensors.inl                 // now uses std::shared_ptr<cv::Mat> for latest_frame updates
+  │  │  ├── sensors.inl                 
   │  │  └── serialport
   │  │    ├── CRC_Check.h
   │  │    └── SerialPort.h
   │  └── src
   │    ├── hikrobot
-  │    │  └── HikRobot.cpp              // moved imshow out of driver, atomic_store to latest_frame
+  │    │  └── HikRobot.cpp            
   │    ├── sensors.cpp
   │    └── serialport
   │      ├── CRC_Check.cpp
-  │      └── SerialPort.cpp             // reduced sleep when fd_ < 0 and throttled logs
+  │      └── SerialPort.cpp             
   ├── threads                           // 线程间模块
   │  ├── CMakeLists.txt
   │  └── inc
@@ -90,10 +90,10 @@
     │  ├── json
     │  │  └── ReJson.hpp
     │  ├── mcap
-    │  └── LatestFrame.hpp               // global latest_frame declaration (atomic shared_ptr)
+    │  └── LatestFrame.hpp              
     └── src
       ├── function
       │  └── function.cpp
       ├── json
       │  └── ReJson.cpp
-      └── LatestFrame.cpp                // definition of latest_frame and counters
+      └── LatestFrame.cpp               
