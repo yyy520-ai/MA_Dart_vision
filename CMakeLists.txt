@@ -1,7 +1,4 @@
-# test executables removed
-# 屏蔽CMake开发者警告（黄色提示）
 set(CMAKE_SUPPRESS_DEVELOPER_WARNINGS 1 CACHE BOOL "No dev warnings")
-# 指定 Qt5Config.cmake 路径，确保 find_package(Qt5 ...) 能找到
 set(CMAKE_PREFIX_PATH "/usr/lib/x86_64-linux-gnu/cmake/Qt5" ${CMAKE_PREFIX_PATH})
 # Qt5 查找与链接
 find_package(Qt5 REQUIRED COMPONENTS Core Gui Widgets)
