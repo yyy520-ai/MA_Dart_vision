@@ -324,12 +324,6 @@ void HikRobot::assertSuccess(uint32_t status) {
 }
 
 void HikRobot::getImage() {
-    // debug: getImage entry logged only when verbose debugging is enabled
-    // Try to receive CarData from serial for a short period; if serial
-    // is unavailable or no data arrives, fall back to a default CarData
-    // so camera capture and detection can run for development/testing.
-    // Try to receive CarData from serial once; if unavailable, quickly fall back
-    // to default CarData so camera capture is not blocked by serial I/O.
     CarData car_data;
     if (!this->sp_.receive(car_data)) {
         static bool warned = false;
