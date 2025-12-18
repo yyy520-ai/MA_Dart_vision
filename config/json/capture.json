@@ -1,0 +1,11 @@
+{
+  "mcap": {
+    "directory": "../bag/",
+    "name": "re_2024_6_1_16_32_13_1",
+    "type": ".mcap"
+  },
+
+  "enabled": false,
+
+  "frame_cnt": 2000
+}

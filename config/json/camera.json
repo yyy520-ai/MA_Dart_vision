@@ -1,0 +1,13 @@
+{
+  "hikrobot": {
+    "pixel_format": 17301513,
+    "exposure_us": 10000.0,
+    "gain": 16.0,
+    "roi": {
+      "width": 384,
+      "width_offset": 300,
+      "height": 640,
+      "height_offset": 100
+    }
+  }
+}
