@@ -126,7 +126,6 @@ void Mouse::onMouse(int event, int x, int y, int flags, void *param) {
                     }
                 }
 
-//                std::cout << "ltx: " << m_i->ltx << " lty: " << m_i->lty << " rbx: " << m_i->rbx << " rby: " << m_i->rby << std::endl;
             } else {
                 m_i->reset_rect = false;
             }
@@ -146,7 +145,6 @@ void Mouse::onMouse(int event, int x, int y, int flags, void *param) {
                 m_i->rbx = x;
                 m_i->rby = y;
 
-//                std::cout << "ltx: " << m_i->ltx << " lty: " << m_i->lty << " rbx: " << m_i->rbx << " rby: " << m_i->rby << std::endl;
             } else if (m_i->is_moving_rect) {
                 double originX = m_i->ltx + width / 2 + delta_x;
                 double originY = m_i->lty + height / 2 + delta_y;
