@@ -24,7 +24,7 @@ uint16_t crc16_ibm(const uint8_t* data, size_t len) {
 }
 
 int main() {
-    const char* serial_port = "/dev/ttyUSB0"; // 如有需要请修改
+    const char* serial_port = "/dev/ttyUSB0"; 
     int fd = open(serial_port, O_RDWR | O_NOCTTY | O_NONBLOCK);
     if (fd < 0) {
         std::cerr << "无法打开串口: " << serial_port << std::endl;
